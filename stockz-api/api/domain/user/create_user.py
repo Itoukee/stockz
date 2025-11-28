@@ -1,5 +1,10 @@
 from domain.user.entity import User
 from infra.user.repository import UserRepository
+from pydantic import BaseModel
+
+
+class CreateUserDto(BaseModel):
+    name: str
 
 
 class CreateUserUseCase:
@@ -8,5 +13,5 @@ class CreateUserUseCase:
         self.repo = repo
 
     def execute(self, name: str) -> User:
-        user = User(id=None, name=name)
+        user = User(user_id=None, name=name)
         return self.repo.create(user)

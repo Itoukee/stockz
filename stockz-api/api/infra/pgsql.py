@@ -1,5 +1,4 @@
 from sqlalchemy import create_engine, Session
-
 from settings import settings
 
 engine = create_engine(
