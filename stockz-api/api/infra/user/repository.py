@@ -1,17 +1,16 @@
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import declarative_base, Session
-from infra.pgsql import session
+from sqlalchemy import Integer, String
+from sqlalchemy.orm import mapped_column, declarative_base
+
+from infra.pgsql import session, Base
 from domain.user.entity import User
 from ports.user_interface import UserRepository
-
-Base = declarative_base()
 
 
 class UserModel(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
+    id = mapped_column(Integer, primary_key=True, autoincrement=True)
+    name = mapped_column(String)
 
 
 class PgsqlUserRepository(UserRepository):
@@ -34,4 +33,5 @@ class PgsqlUserRepository(UserRepository):
         session.flush()
         user.id = row.id
 
+        session.commit()
         return user

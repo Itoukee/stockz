@@ -5,9 +5,15 @@ FROM python:3.12-alpine
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+#
+RUN \
+    apk add --no-cache python3 postgresql-libs && \
+    apk add --no-cache --virtual .build-deps gcc python3-dev musl-dev postgresql-dev && \
+    python3 -m pip install -r requirements.txt --no-cache-dir && \
+    apk --purge del .build-deps
 
 EXPOSE 8080
 # Command to run the application with automatic reload
-CMD ["python","index.py"]
+
+
+CMD ["./entrypoint.sh"]

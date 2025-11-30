@@ -2,3 +2,4 @@
 .env
 .python-version
 __pycache__
+api/migrations/versions/*_new_migration.py
