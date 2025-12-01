@@ -15,6 +15,10 @@ class Settings(BaseSettings):
 
     log_level: str = "INFO"
 
+    jwt_key: str = ""
+    jwt_algo: str = "HS256"
+    jwt_expire_min: int = 60
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
