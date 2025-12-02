@@ -10,7 +10,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    environment: tests
+    environment: Test
     env:
       POSTGRES_USER: ${{ secrets.DB_USER }}
       POSTGRES_PASSWORD: ${{ secrets.DB_PWD }}
@@ -29,7 +29,7 @@ jobs:
 
       - name: Docker Compose up
         run: |
-          docker compose -f docker-compose.test.yml up -d
+          docker compose -f docker-compose.test.yml up
     
       - name: Wait for Postgres
         run: |
