@@ -4,11 +4,11 @@ services:
     image: postgres:18
     container_name: test-db
     restart: always
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PWD} 
-      POSTGRES_DB: ${TEST_DB_NAME} 
-  
+    env:
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PWD: ${{ secrets.DB_PWD }}
+      TEST_DB_NAME: ${{ secrets.TEST_DB_NAME }}
+    
     ports:
       - "5433:5432"
     volumes:
