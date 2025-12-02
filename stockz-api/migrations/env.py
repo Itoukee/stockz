@@ -4,7 +4,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-from os import getenv
+from settings import settings
 
 from infra.pgsql import Base
 
@@ -18,10 +18,8 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 
-db_url = (
-    f"postgresql://{getenv("DB_USER")}:{getenv("DB_PWD")}@pgsql/{getenv("DB_NAME")}"
-)
-config.set_main_option("sqlalchemy.url", db_url)
+DB_URL = f"postgresql://{settings.db_user}:{settings.db_pwd}@pgsql/{settings.db_name}"
+config.set_main_option("sqlalchemy.url", DB_URL)
 
 # add your model's MetaData object here
 # for 'autogenerate' support

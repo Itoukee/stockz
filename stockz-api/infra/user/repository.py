@@ -1,8 +1,8 @@
 from sqlalchemy import Integer, String
-from sqlalchemy.orm import mapped_column
+from sqlalchemy.orm import mapped_column, Session
 from passlib.hash import bcrypt
 
-from infra.pgsql import session, Base
+from infra.pgsql import Base, session as default_session
 from domain.user.entity import User
 from ports.user_interface import UserRepository
 
@@ -22,8 +22,12 @@ class PgsqlUserRepository(UserRepository):
         UserRepository (_type_): _description_
     """
 
+    def __init__(self, session: Session = default_session) -> None:
+        super().__init__()
+        self.session = session
+
     def find_by_email(self, email: str) -> User | None:
-        row = session.query(UserModel).filter_by(email=email).first()
+        row = self.session.query(UserModel).filter_by(email=email).first()
         if row:
             return User(user_id=row.id, email=row.email, password=row.password)
         return None
@@ -32,9 +36,9 @@ class PgsqlUserRepository(UserRepository):
         hashed_pwd = bcrypt.hash(user.password)
         row = UserModel(email=user.email, password=hashed_pwd)
 
-        session.add(row)
-        session.flush()
+        self.session.add(row)
+        self.session.flush()
         user.id = row.id
 
-        session.commit()
+        self.session.commit()
         return user

@@ -1,9 +1,8 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import Field
-from dotenv import load_dotenv
 
 
 class Settings(BaseSettings):
+    test_db_name: str = ""
     db_name: str = ""
     db_pwd: str = ""
     db_user: str = ""
