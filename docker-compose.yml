@@ -2,9 +2,7 @@ services:
 
   api:
     build:
-      context: ./stockz-api/api
-    env_file:
-      - ./stockz-api/.env
+      context: ./stockz-api/
     networks:
       - database
       - api
@@ -13,7 +11,7 @@ services:
     depends_on:
       - pgsql
     volumes:
-      - ./stockz-api/api:/usr/src/app
+      - ./stockz-api:/usr/src/app
     
 
     
@@ -33,9 +31,6 @@ services:
     # you are connecting to your database.
     ports:
       - 5432:5432
-
-    env_file:
-      - ./stockz-api/.env
 
     environment:
       POSTGRES_USER: ${DB_USER} # The PostgreSQL user (useful to connect to the database)
@@ -73,8 +68,6 @@ services:
       - pgsql
     ports:
       - "8888:80"
-    env_file:
-      - ./stockz-api/.env
     environment:
       PGADMIN_DEFAULT_EMAIL: ${DB_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${DB_PWD}
