@@ -18,12 +18,6 @@ jobs:
       - name: Docker Compose up
         run: |
           docker compose -f docker-compose.test.yml up -d
-          
-      # Attendre que Postgres soit prêt
-      - name: Wait for Postgres
-        run: |
-          docker compose -f docker-compose.test.yml exec test-db sh -c \
-          "until pg_isready -U $${{secrets.DB_USER}}; do sleep 1; done"
 
       # Installer les dépendances Python
       - name: Install dependencies
