@@ -4,8 +4,8 @@ services:
     image: postgres:18
     restart: always
     environment:
-      DB_USER: ${DB_USER}
-      DB_PWD: ${DB_PWD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PWD}
       TEST_DB_NAME: ${TEST_DB_NAME}
     ports:
       - 5432:5433
