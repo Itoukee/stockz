@@ -5,9 +5,9 @@ services:
     container_name: test-db
     restart: always
     env:
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_PWD: ${{ secrets.DB_PWD }}
-      TEST_DB_NAME: ${{ secrets.TEST_DB_NAME }}
+      DB_USER: $${{ secrets.DB_USER }}
+      DB_PWD: $${{ secrets.DB_PWD }}
+      TEST_DB_NAME: $${{ secrets.TEST_DB_NAME }}
     
     ports:
       - "5433:5432"
