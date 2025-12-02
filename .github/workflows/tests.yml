@@ -37,11 +37,9 @@ jobs:
           "until pg_isready -U $${POSTGRES_USER}; do sleep 1; done"
 
       
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest pytest-mock
+      - name: Install package
+        run: pip install -e .
+
 
       
       - name: Run tests
