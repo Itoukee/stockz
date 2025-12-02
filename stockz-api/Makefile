@@ -4,11 +4,11 @@
 up-test-db:
 	docker compose -f docker-compose.test.yml up -d
 
-# Tests unitaires (pas de DB)
+# Tests unitaires
 test-unit:
 	pytest tests/unit -q
 
-# Tests d’intégration (DB nécessaire)
+# Tests d’intégration
 test-int:
 	pytest tests/integration -q
 

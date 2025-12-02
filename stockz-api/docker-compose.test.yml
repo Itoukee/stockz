@@ -8,7 +8,7 @@ services:
       DB_PWD: ${DB_PWD}
       TEST_DB_NAME: ${TEST_DB_NAME}
     ports:
-      - 5433
+      - 5432:5433
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${DB_USER}"]
       interval: 3s
