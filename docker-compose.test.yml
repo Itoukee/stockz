@@ -13,11 +13,6 @@ services:
       - "5433:5432"
     volumes:
       - test-db-data:/var/lib/postgresql/MAJOR/docker
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${{secrets.DB_USER}}"]
-      interval: 3s
-      timeout: 3s
-      retries: 5
 
 volumes:
   test-db-data:
