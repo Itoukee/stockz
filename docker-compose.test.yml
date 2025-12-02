@@ -4,7 +4,7 @@ services:
     image: postgres:18
     container_name: test-db
     restart: always
-    env:
+    environment:
       DB_USER: $${{ secrets.DB_USER }}
       DB_PWD: $${{ secrets.DB_PWD }}
       TEST_DB_NAME: $${{ secrets.TEST_DB_NAME }}
