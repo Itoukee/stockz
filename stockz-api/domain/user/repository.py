@@ -19,5 +19,5 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    def create(self, user: User) -> User:
+    def save(self, user: User) -> User:
         pass

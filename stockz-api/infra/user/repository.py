@@ -4,7 +4,7 @@ from passlib.hash import bcrypt
 
 from infra.pgsql import Base, session as default_session
 from domain.user.entity import User
-from ports.user_interface import UserRepository
+from domain.user.repository import UserRepository
 
 
 class UserModel(Base):
@@ -26,16 +26,22 @@ class PgsqlUserRepository(UserRepository):
         super().__init__()
         self.session = session
 
+    def _to_domain(self, model: UserModel) -> User:
+        return User(user_id=model.id, email=model.email, password=model.password)
+
+    def _to_model(self, user: User) -> UserModel:
+        return UserModel(email=user.email, password=user.password)
+
     def find_by_email(self, email: str) -> User | None:
         row = self.session.query(UserModel).filter_by(email=email).first()
         if row:
             return User(user_id=row.id, email=row.email, password=row.password)
         return None
 
-    def create(self, user: User) -> User:
-        hashed_pwd = bcrypt.hash(user.password)
-        row = UserModel(email=user.email, password=hashed_pwd)
+    def save(self, user: User) -> User:
+        user.password = bcrypt.hash(user.password)
 
+        row = self._to_model(user)
         self.session.add(row)
         self.session.flush()
         user.id = row.id
