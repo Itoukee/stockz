@@ -2,4 +2,5 @@
 .env
 .python-version
 __pycache__
+.pytest_cache
 migrations/versions/*_new_migration.py

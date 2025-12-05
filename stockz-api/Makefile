@@ -6,7 +6,7 @@ up-test-db:
 
 # Tests unitaires
 test-unit:
-	pytest tests/unit -q
+	pytest tests/units -q
 
 # Tests d’intégration
 test-int:

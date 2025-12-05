@@ -29,7 +29,7 @@ class PgsqlUserRepository(UserRepository):
     def find_by_email(self, email: str) -> User | None:
         row = self.session.query(UserModel).filter_by(email=email).first()
         if row:
-            return User(user_id=row.id, email=row.email, password=row.password)
+            return User(id=row.id, email=row.email, password=row.password)
         return None
 
     def create(self, user: User) -> User:

@@ -17,7 +17,7 @@ class CreateUserUseCase:
         self.repo = repo
 
     def execute(self, email: str, password: str):
-        user = User(user_id=None, email=email, password=password)
+        user = User(id=None, email=email, password=password)
         return self.repo.create(user)
 
 

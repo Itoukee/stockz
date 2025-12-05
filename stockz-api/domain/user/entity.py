@@ -1,11 +1,11 @@
 from typing import Optional
+from pydantic import BaseModel
 
 
-class User:
-    def __init__(self, user_id: Optional[int], email: str, password: str):
-        self.id = user_id
-        self.email = email
-        self.password = password
+class User(BaseModel):
+    id: Optional[int] = None
+    email: str
+    password: str
 
     def update_email(self, new_email: str):
         self.email = new_email

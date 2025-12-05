@@ -6,7 +6,7 @@ test_user = {"id": 1, "email": "toto@gmail.com", "password": "123456"}
 
 def test_register_user(mocker):
     mock_repo = mocker.Mock()
-    mock_repo.create.return_value = User(user_id=None, **test_user)
+    mock_repo.create.return_value = User(**test_user)
 
     uc = CreateUserUseCase(mock_repo)
 
