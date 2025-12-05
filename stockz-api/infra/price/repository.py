@@ -52,27 +52,24 @@ class PriceDailyPgsqlRepository(PriceDailyRepository):
             volume=domain.ohlcv.volume,
         )
 
-    def save(self, price: PriceDaily) -> PriceDaily:
-        already_exists = self.session.get(PriceDailyModel, (price.ticker, price.date))
+    def save_bulk(self, prices: list[PriceDaily]) -> None:
+        models = [
+            PriceDailyModel(
+                ticker=p.ticker,
+                date=p.date,
+                open=p.ohlcv.open,
+                high=p.ohlcv.high,
+                low=p.ohlcv.low,
+                close=p.ohlcv.close,
+                volume=p.ohlcv.volume,
+            )
+            for p in prices
+        ]
 
-        if not already_exists:
-            model = self._to_model(price)
-            self.session.add(model)
-            self.session.flush()
+        for m in models:
+            self.session.merge(m)
 
-            self.session.commit()
-            return self._to_domain(model)
-
-        already_exists.open = price.ohlcv.open
-        already_exists.high = price.ohlcv.high
-        already_exists.low = price.ohlcv.low
-        already_exists.close = price.ohlcv.close
-        already_exists.volume = price.ohlcv.volume
-
-        self.session.flush()
-        self.session.commit()
-
-        return self._to_domain(already_exists)
+        return
 
     def get(self, ticker: str, date: d_type) -> Optional[PriceDaily]:
         model = self.session.get(PriceDailyModel, (ticker, date))

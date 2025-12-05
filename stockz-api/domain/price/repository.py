@@ -6,8 +6,8 @@ from domain.price.entity import PriceDaily
 
 class PriceDailyRepository(ABC):
     @abstractmethod
-    def save(self, price: PriceDaily) -> PriceDaily:
-        """Persist a PriceDaily and return it (possibly with DB filled fields)."""
+    def save_bulk(self, prices: list[PriceDaily]) -> None:
+        """Saves in bulk all the prices for a ticker given a timespan"""
 
     @abstractmethod
     def get(self, ticker: str, date) -> Optional[PriceDaily]:

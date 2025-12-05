@@ -1,9 +1,12 @@
 from fastapi import APIRouter, HTTPException, Depends
 
-from domain.user.use_cases import AuthRequestDto, CreateUserUseCase, LoginUserUseCase
 from infra.user.repository import PgsqlUserRepository
 from infra.jwt import require_user
-
+from application.user.cases.auth_user import (
+    AuthRequestDto,
+    CreateUserUseCase,
+    LoginUserUseCase,
+)
 
 user_repo = PgsqlUserRepository()
 users_router = APIRouter()
